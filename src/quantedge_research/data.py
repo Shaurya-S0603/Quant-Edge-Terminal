@@ -5,12 +5,16 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from datetime import date, datetime, timedelta
 from functools import lru_cache
+from hashlib import sha256
 from pathlib import Path
 from typing import Literal
 
 import numpy as np
 import pandas as pd
 import pandas_market_calendars as calendars
+
+from .action_review import ComplexAction, known_complex_actions
+from .session_overrides import NSE_TIMEZONE, overrides_for
 
 MARKETS = {"US": ("NYSE", "USD"), "NSE": ("NSE", "INR")}
 BAR_COLUMNS = ("open", "high", "low", "close", "volume")
@@ -46,12 +50,21 @@ class Coverage:
 
 
 @dataclass(frozen=True)
+class CalendarEvidence:
+    reference: str
+    version: str
+    schedule_sha256: str
+    circulars: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class Audit:
     instrument: Instrument
     provider: str
     audited_at: str
     bounds: tuple[str, str, str]
     price_basis: PriceBasis
+    calendar: CalendarEvidence
     development: Coverage
     holdout: Coverage
     off_calendar: tuple[str, ...]
@@ -61,6 +74,7 @@ class Audit:
     split_count: int
     dividend_count: int
     unfinished_rows: int
+    unresolved_actions: tuple[ComplexAction, ...]
 
     def report(self) -> dict:
         return asdict(self)
@@ -72,7 +86,33 @@ def session_schedule(market: str, start: date, end: date) -> pd.DataFrame:
     if not start < end:
         raise ValueError("The schedule must span a positive date range.")
     name = MARKETS[market][0]
-    return calendars.get_calendar(name).schedule(start, end - timedelta(days=1))
+    schedule = calendars.get_calendar(name).schedule(start, end - timedelta(days=1))
+    # pandas may return different datetime precisions for an empty schedule.
+    # Explicit UTC columns keep insertions valid even for a single weekend date.
+    schedule = schedule[["market_open", "market_close"]].astype("datetime64[ns, UTC]")
+    for item in overrides_for(market, start, end):
+        label = pd.Timestamp(item.session)
+        if item.is_closed:
+            schedule = schedule.drop(label, errors="ignore")
+        else:
+            assert item.normal_open is not None and item.normal_close is not None
+            market_open = pd.Timestamp(datetime.combine(item.session, item.normal_open),
+                                       tz=NSE_TIMEZONE).tz_convert("UTC")
+            market_close = pd.Timestamp(datetime.combine(item.session, item.normal_close),
+                                        tz=NSE_TIMEZONE).tz_convert("UTC")
+            schedule.loc[label] = (market_open, market_close)
+    return schedule.sort_index()
+
+
+def _calendar_evidence(market: str, start: date, end: date, schedule: pd.DataFrame) -> CalendarEvidence:
+    canonical = schedule.to_csv(index_label="session", date_format="%Y-%m-%dT%H:%M:%S%z",
+                                lineterminator="\n")
+    return CalendarEvidence(
+        reference=MARKETS[market][0],
+        version=calendars.__version__,
+        schedule_sha256=sha256(canonical.encode()).hexdigest(),
+        circulars=tuple(item.source_url for item in overrides_for(market, start, end)),
+    )
 
 
 def read_csv(path: Path) -> pd.DataFrame:
@@ -147,11 +187,13 @@ def audit_bars(
     return clean, Audit(
         instrument, provider, as_of.isoformat(),
         (start.isoformat(), boundary.isoformat(), end.isoformat()), price_basis,
+        _calendar_evidence(instrument.market, start, end, schedule),
         coverage(start, boundary), coverage(boundary, end),
         tuple(sorted(set(off_calendar.dt.strftime("%Y-%m-%d")))),
         malformed_dates + int((~valid).sum()), int(duplicates.sum()),
         int(clean["volume"].eq(0).sum()), int(clean["split_ratio"].ne(1).sum()),
         int(clean["cash_dividend"].ne(0).sum()), int(unfinished.sum()),
+        known_complex_actions(instrument.ticker, start, end),
     )
 
 

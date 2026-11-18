@@ -22,7 +22,7 @@ The default command reproduces the original [starter-list audit](coverage-audit-
 PYTHONPATH=src .venv-research/bin/python -m quantedge_research --baseline research/approved-portfolio-v1.json --end-exclusive 2026-11-01 > .data/research/portfolio-coverage.json
 ```
 
-Both commands request fixed historical dates and emit coverage, action counts, and quality flags. The baseline audit includes the configuration SHA-256 and checks that the screening dates fit inside development. Provider history can change between fetches. See the [approved baseline audit](approved-portfolio-audit-2026-11-18.md) for the observed coverage.
+Both commands request fixed historical dates and emit coverage, action counts, and quality flags. The baseline audit includes the configuration SHA-256 and checks that the screening dates fit inside development. Provider history can change between fetches. See the [approved baseline audit](approved-portfolio-audit-2026-11-18.md) and [NSE reconciliation](nse-calendar-reconciliation-2026-11-18.md) for the observed coverage and official records. Each instrument audit includes the calendar version, schedule hash, and applicable exchange circulars.
 
 ### Local historical data contract
 

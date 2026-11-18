@@ -1,5 +1,7 @@
 # Approved comparison portfolio coverage
 
+This report records the original calendar comparison. See the [reconciled NSE audit](nse-calendar-reconciliation-2026-11-18.md) for verified trading-session corrections and updated coverage.
+
 The [portfolio configuration](approved-portfolio-v1.json) records the 16 stocks and weights approved on 18 November 2026. The weights are fixed research targets and the ticker list is the candidate universe. Compare each market in local currency. SPY and NIFTYBEES.NS are reference benchmarks and carry no target allocation.
 
 | Profile | Weight across both markets | Weight per holding |

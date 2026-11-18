@@ -90,7 +90,7 @@ def stage_snapshot(
         and audit.holdout.observed > 0
         and not any((
             audit.development.missing, audit.holdout.missing, audit.off_calendar,
-            audit.invalid_rows, audit.duplicate_rows, audit.unfinished_rows,
+            audit.invalid_rows, audit.duplicate_rows, audit.unfinished_rows, audit.unresolved_actions,
         ))
         for audit in audits
     )
