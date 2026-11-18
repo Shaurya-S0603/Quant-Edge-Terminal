@@ -30,7 +30,7 @@ function gridInterval(span, ticks) {
   return ([1, 2, 2.5, 5, 10].find((step) => step * unit >= approximate) || 10) * unit;
 }
 
-function draw(id, { label, labels, lines, bands = [], mode }) {
+export function draw(id, { label, labels, lines, bands = [], mode }) {
   const holder = byId(id);
   const width = Math.max(240, holder.clientWidth);
   const height = 282;

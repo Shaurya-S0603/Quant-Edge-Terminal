@@ -1,1 +1,0 @@
-"""QuantEdge full-stack applications."""

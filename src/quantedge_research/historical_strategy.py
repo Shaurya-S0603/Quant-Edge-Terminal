@@ -30,7 +30,7 @@ NIFTYBEES_UNIT_CHECKS = {
 
 
 def adjusted_prices(
-    source: pd.DataFrame, start: date, end: date, *, ticker: str,
+    source: pd.DataFrame, start: date, end: date, *, ticker: str, reject_outliers: bool = True,
 ) -> tuple[dict[date, Prices], list[str]]:
     """Check the delivered OHLCV and construct a total-return execution proxy."""
     fields = ["session", *PRICE_FIELDS, "Volume"]
@@ -60,7 +60,7 @@ def adjusted_prices(
             bars.loc[row, list(PRICE_FIELDS)] *= 10
             normalized.append(day.isoformat())
     suspicious = bars["Adj Close"].pct_change().abs().gt(0.40)
-    if suspicious.any():
+    if reject_outliers and suspicious.any():
         raise ValueError(f"Unreviewed daily return above 40% for {ticker} on {sessions[suspicious.idxmax()]}.")
     opened = bars["Open"] * (bars["Adj Close"] / bars["Close"])
     return ({

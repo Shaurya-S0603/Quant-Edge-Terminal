@@ -1,5 +1,7 @@
 # QuantEdge research baseline
 
+This is the original migration audit. The Strategy Lab superseded the legacy runtimes after the audit. See the [current project README](../README.md).
+
 Audited on 18 November 2026. The GitHub checkout started from `main` at [42ed37c8](https://github.com/Shaurya-S0603/Quant-Edge-Terminal/commit/42ed37c8e8e5dc686d8a1d93856bb1dab449f58c). [Python CI](https://github.com/Shaurya-S0603/Quant-Edge-Terminal/actions/runs/38701915950) and [full-stack connectivity CI](https://github.com/Shaurya-S0603/Quant-Edge-Terminal/actions/runs/38701916013) passed on that commit.
 
 | Existing asset | Decision for the research rebuild |
