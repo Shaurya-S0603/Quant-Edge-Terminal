@@ -2,6 +2,8 @@
 
 Phase 1 provides an offline research package and a coverage audit. It is separate from the existing Streamlit and Next.js/FastAPI runtimes. The audit command cannot register an approval or run a strategy. The [fixed-weight comparison prototype](synthetic-comparison.md) is an offline synthetic smoke run for the next development phase. The [Trend + Volatility v1 strategy](trend-volatility-strategy.md) includes a pinned configuration and an expanding-window runner.
 
+The [Yahoo Finance development replay](yahoo-development-replay.md) evaluates that strategy on the approved stocks, documents the provider corrections, and reproduces the interactive Strategy Lab. Its executable reads development prices only and publishes portfolio analytics from the replay.
+
 ## Reproduce
 
 Create a dedicated Python 3.12 environment. From the repository root on Linux or macOS:
