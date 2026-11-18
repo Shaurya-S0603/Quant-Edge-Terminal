@@ -1,6 +1,6 @@
 # Historical research protocol
 
-Phase 1 provides an offline research package and a coverage audit. It is separate from the existing Streamlit and Next.js/FastAPI runtimes. The audit command cannot register an approval or run a strategy. The [fixed-weight comparison prototype](synthetic-comparison.md) is an offline synthetic smoke run for the next development phase.
+Phase 1 provides an offline research package and a coverage audit. It is separate from the existing Streamlit and Next.js/FastAPI runtimes. The audit command cannot register an approval or run a strategy. The [fixed-weight comparison prototype](synthetic-comparison.md) is an offline synthetic smoke run for the next development phase. The [Trend + Volatility v1 strategy](trend-volatility-strategy.md) includes a pinned configuration and an expanding-window runner.
 
 ## Reproduce
 

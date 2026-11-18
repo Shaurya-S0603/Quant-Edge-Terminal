@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
 from datetime import date, datetime
 from math import fsum, isclose, isfinite
@@ -12,6 +12,11 @@ from math import fsum, isclose, isfinite
 class Prices:
     open: float
     close: float
+    signal_close: float | None = None
+
+    @property
+    def feature_close(self) -> float:
+        return self.close if self.signal_close is None else self.signal_close
 
 
 @dataclass(frozen=True)
@@ -107,7 +112,7 @@ def _validate_inputs(sessions: Sequence[Session], weights: Mapping[str, float], 
             raise ValueError("Close must be available after the opening event.")
         for ticker in weights:
             prices = session.prices.get(ticker)
-            if prices is None or any(not isfinite(price) or price <= 0 for price in (prices.open, prices.close)):
+            if prices is None or any(not isfinite(price) or price <= 0 for price in (prices.open, prices.close, prices.feature_close)):
                 raise ValueError(f"Missing or invalid price for {ticker} on {session.day}.")
     for previous, current in zip(sessions, sessions[1:]):
         if previous.close_available_at >= current.market_open_at:
@@ -160,14 +165,21 @@ def simulate(
     initial_cash: float,
     costs: Costs,
     rebalance_monthly: bool = True,
+    policy: Callable[[tuple[Session, ...]], Mapping[str, float]] | None = None,
+    warmup: Sequence[Session] = (),
 ) -> Simulation:
     """Submit fixed quantities at the first observed close of each month.
 
     With monthly rebalancing off, submit the initial allocation only. The
     closing signal sizes market orders for the following session. Closing
-    positions are marked to market, with no forced final liquidation.
+    positions are marked to market, with no forced final liquidation. A
+    policy sees only completed sessions. Warm-up sessions inform the
+    policy without holding positions or generating fills.
     """
-    _validate_inputs(sessions, weights, initial_cash)
+    if len(sessions) < 2:
+        raise ValueError("At least two trading sessions are required.")
+    _validate_inputs((*warmup, *sessions), weights, initial_cash)
+    history = list(warmup) if policy else []
     cash = initial_cash
     positions = dict.fromkeys(sorted(weights), 0.0)
     pending: _OrderBatch | None = None
@@ -184,10 +196,17 @@ def simulate(
         equity = cash + fsum(quantity * session.prices[ticker].close
                              for ticker, quantity in positions.items())
         points.append(PortfolioPoint(session.day, equity, cash, positions.copy()))
+        if policy is not None:
+            history.append(session)
         month = (session.day.year, session.day.month)
         if last_month is None or (rebalance_monthly and month != last_month):
+            targets = weights if policy is None else policy(tuple(history))
+            if (set(targets) != set(weights)
+                    or any(not isfinite(weight) or weight < 0 for weight in targets.values())
+                    or fsum(targets.values()) > 1.0 + 1e-12):
+                raise ValueError("Allocation must cover the universe with nonnegative weights and no leverage.")
             quantities = {
-                ticker: equity * weights[ticker] / session.prices[ticker].close - positions[ticker]
+                ticker: equity * targets[ticker] / session.prices[ticker].close - positions[ticker]
                 for ticker in positions
             }
             pending = _OrderBatch(session.close_available_at, quantities)

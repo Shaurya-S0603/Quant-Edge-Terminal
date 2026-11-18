@@ -1,0 +1,1378 @@
+{
+  "data": "synthetic_fixture",
+  "has_real_market_prices": false,
+  "strategy_id": "quantedge-trend-volatility-v1",
+  "strategy_sha256": "252d1aa829b6db6e159f7f5ca0eb7b16379a84f1d671a6b0333f016bbc5026b3",
+  "baseline_sha256": "e1eaa112ec21e1a43c5728347ac04d58300f5ed4291b20eee98826d15556f59f",
+  "seed": 4127,
+  "split_dates": {
+    "start": "2016-11-01",
+    "holdout_start": "2024-11-01",
+    "end_exclusive": "2026-11-01"
+  },
+  "holdout_evaluated": false,
+  "default_rule": {
+    "momentum_sessions": 63,
+    "volatility_sessions": 20,
+    "volatility_ceiling": 0.2
+  },
+  "costs": {
+    "fee_bps": 5,
+    "slippage_bps": 10
+  },
+  "initial_cash_per_fold": 100000,
+  "sleeves": {
+    "US": {
+      "currency": "USD",
+      "reference_ticker_label": "SPY",
+      "anchor_weights": {
+        "NVDA": 0.06,
+        "TSLA": 0.06,
+        "MSFT": 0.18,
+        "AMZN": 0.18,
+        "WM": 0.12,
+        "JNJ": 0.12,
+        "KO": 0.14,
+        "DUK": 0.14
+      },
+      "folds": [
+        {
+          "train_first_session": "2016-11-01",
+          "train_last_session": "2018-10-31",
+          "train_scoring_first_session": "2017-05-05",
+          "validation_start": "2018-11-01",
+          "validation_end_exclusive": "2019-11-01",
+          "validation_sessions": 251,
+          "selected_rule": {
+            "momentum_sessions": 63,
+            "volatility_sessions": 20,
+            "volatility_ceiling": 0.2
+          },
+          "training_trials": [
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.19427824886275363,
+              "return": -0.02372127277088132
+            },
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.2098286863561473,
+              "return": -0.029370239552520494
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.0053881390808548455,
+              "return": -0.0030418315284951314
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": 0.08249778923225222,
+              "return": 0.004925558372805172
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.17009559603922872,
+              "return": -0.01453548102215152
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.12415728001156894,
+              "return": -0.013298662290179508
+            }
+          ],
+          "walk_forward": {
+            "ending_equity": 87606.8485352647,
+            "return": -0.12393151464735308,
+            "max_drawdown": 0.13592263208966038,
+            "turnover": 3.776843310363383,
+            "fees": 177.26910333120358,
+            "slippage": 354.53820666240716,
+            "fill_count": 45,
+            "net_sharpe": -1.8560659257289445
+          },
+          "fixed_rule": {
+            "ending_equity": 87606.8485352647,
+            "return": -0.12393151464735308,
+            "max_drawdown": 0.13592263208966038,
+            "turnover": 3.776843310363383,
+            "fees": 177.26910333120358,
+            "slippage": 354.53820666240716,
+            "fill_count": 45,
+            "net_sharpe": -1.8560659257289445
+          },
+          "fixed_weights": {
+            "ending_equity": 76008.6565565799,
+            "return": -0.239913434434201,
+            "max_drawdown": 0.25610044491021156,
+            "turnover": 1.2546621773114344,
+            "fees": 60.92071328234215,
+            "slippage": 121.8414265646843,
+            "fill_count": 96,
+            "net_sharpe": -1.800495827448671
+          },
+          "reference": {
+            "ending_equity": 89513.97428450656,
+            "return": -0.10486025715493441,
+            "max_drawdown": 0.1682876778451151,
+            "turnover": 0.9974729571351476,
+            "fees": 49.87364785675738,
+            "slippage": 99.74729571351476,
+            "fill_count": 1,
+            "net_sharpe": -0.5507046088796582
+          }
+        },
+        {
+          "train_first_session": "2016-11-01",
+          "train_last_session": "2019-10-31",
+          "train_scoring_first_session": "2017-05-05",
+          "validation_start": "2019-11-01",
+          "validation_end_exclusive": "2020-11-01",
+          "validation_sessions": 252,
+          "selected_rule": {
+            "momentum_sessions": 42,
+            "volatility_sessions": 20,
+            "volatility_ceiling": 0.15
+          },
+          "training_trials": [
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.5437461837817287,
+              "return": -0.09263303300932724
+            },
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.5562627820374247,
+              "return": -0.10674106220449586
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.8024731011027422,
+              "return": -0.11766842650507825
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.7253770746663819,
+              "return": -0.12112151012782835
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.8845370029810238,
+              "return": -0.11202887485733648
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.793521177759824,
+              "return": -0.11484952363140122
+            }
+          ],
+          "walk_forward": {
+            "ending_equity": 97354.14076700689,
+            "return": -0.026458592329931085,
+            "max_drawdown": 0.08705901137134342,
+            "turnover": 4.147328337504612,
+            "fees": 208.62146925409536,
+            "slippage": 417.2429385081907,
+            "fill_count": 57,
+            "net_sharpe": -0.34957602734063875
+          },
+          "fixed_rule": {
+            "ending_equity": 98636.95267737938,
+            "return": -0.013630473226206252,
+            "max_drawdown": 0.08306385781455572,
+            "turnover": 3.532430063601431,
+            "fees": 177.31912229633673,
+            "slippage": 354.63824459267346,
+            "fill_count": 58,
+            "net_sharpe": -0.10335656606737995
+          },
+          "fixed_weights": {
+            "ending_equity": 98651.1730190904,
+            "return": -0.013488269809095899,
+            "max_drawdown": 0.15899707385887263,
+            "turnover": 1.2266904846493476,
+            "fees": 61.74829981626089,
+            "slippage": 123.49659963252178,
+            "fill_count": 96,
+            "net_sharpe": -0.0192596868644184
+          },
+          "reference": {
+            "ending_equity": 127951.60750694734,
+            "return": 0.2795160750694734,
+            "max_drawdown": 0.15588303770248413,
+            "turnover": 0.9985022466300548,
+            "fees": 49.925112331502746,
+            "slippage": 99.85022466300549,
+            "fill_count": 1,
+            "net_sharpe": 1.4148909629234383
+          }
+        },
+        {
+          "train_first_session": "2016-11-01",
+          "train_last_session": "2020-10-30",
+          "train_scoring_first_session": "2017-05-05",
+          "validation_start": "2020-11-01",
+          "validation_end_exclusive": "2021-11-01",
+          "validation_sessions": 251,
+          "selected_rule": {
+            "momentum_sessions": 42,
+            "volatility_sessions": 20,
+            "volatility_ceiling": 0.15
+          },
+          "training_trials": [
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.4861117496185065,
+              "return": -0.11643677699692367
+            },
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.5499379311511943,
+              "return": -0.148580790580503
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.4925171393966072,
+              "return": -0.11453840911124558
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.5020308708404546,
+              "return": -0.13310103985311983
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.664481981609178,
+              "return": -0.1256041474084434
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.6583440716252864,
+              "return": -0.14149622914144533
+            }
+          ],
+          "walk_forward": {
+            "ending_equity": 104553.85765875697,
+            "return": 0.04553857658756977,
+            "max_drawdown": 0.059880213294944085,
+            "turnover": 3.441907293024882,
+            "fees": 167.28315440023388,
+            "slippage": 334.56630880046777,
+            "fill_count": 52,
+            "net_sharpe": 0.5951988152770447
+          },
+          "fixed_rule": {
+            "ending_equity": 106082.35731715277,
+            "return": 0.060823573171527645,
+            "max_drawdown": 0.08455982108548832,
+            "turnover": 2.682549297443517,
+            "fees": 131.56162516681442,
+            "slippage": 263.12325033362885,
+            "fill_count": 43,
+            "net_sharpe": 0.7515759831858805
+          },
+          "fixed_weights": {
+            "ending_equity": 99186.4318693155,
+            "return": -0.008135681306845055,
+            "max_drawdown": 0.18966494708769488,
+            "turnover": 1.2550701214721813,
+            "fees": 61.350845779654826,
+            "slippage": 122.70169155930965,
+            "fill_count": 96,
+            "net_sharpe": 0.01931690824711414
+          },
+          "reference": {
+            "ending_equity": 90676.77860971483,
+            "return": -0.09323221390285164,
+            "max_drawdown": 0.21383328346183283,
+            "turnover": 0.9885287988608081,
+            "fees": 49.42643994304041,
+            "slippage": 98.85287988608081,
+            "fill_count": 1,
+            "net_sharpe": -0.4593018642739528
+          }
+        },
+        {
+          "train_first_session": "2016-11-01",
+          "train_last_session": "2021-10-29",
+          "train_scoring_first_session": "2017-05-05",
+          "validation_start": "2021-11-01",
+          "validation_end_exclusive": "2022-11-01",
+          "validation_sessions": 252,
+          "selected_rule": {
+            "momentum_sessions": 63,
+            "volatility_sessions": 20,
+            "volatility_ceiling": 0.15
+          },
+          "training_trials": [
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.21294014356511373,
+              "return": -0.07620056549623788
+            },
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.2730018090856043,
+              "return": -0.10939542302549521
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.16645131492637552,
+              "return": -0.058472446191534244
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.19413584418576627,
+              "return": -0.07787201689652701
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.20436741453960292,
+              "return": -0.055986949859534674
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.20101753454870674,
+              "return": -0.06374242643464223
+            }
+          ],
+          "walk_forward": {
+            "ending_equity": 113636.47340884371,
+            "return": 0.13636473408843708,
+            "max_drawdown": 0.07467563327544346,
+            "turnover": 4.496567793060009,
+            "fees": 227.82425043854911,
+            "slippage": 455.64850087709823,
+            "fill_count": 85,
+            "net_sharpe": 1.198743028954501
+          },
+          "fixed_rule": {
+            "ending_equity": 115831.09055173947,
+            "return": 0.1583109055173948,
+            "max_drawdown": 0.0809411956814804,
+            "turnover": 4.17612168533004,
+            "fees": 211.59660555731915,
+            "slippage": 423.1932111146383,
+            "fill_count": 85,
+            "net_sharpe": 1.2255413550184135
+          },
+          "fixed_weights": {
+            "ending_equity": 124126.1549379275,
+            "return": 0.2412615493792749,
+            "max_drawdown": 0.08468391906581574,
+            "turnover": 1.230663916365116,
+            "fees": 62.23867349431314,
+            "slippage": 124.47734698862628,
+            "fill_count": 96,
+            "net_sharpe": 1.5235616215635892
+          },
+          "reference": {
+            "ending_equity": 133743.8308819118,
+            "return": 0.33743830881911796,
+            "max_drawdown": 0.12817764477654625,
+            "turnover": 0.9985022466300548,
+            "fees": 49.925112331502746,
+            "slippage": 99.85022466300549,
+            "fill_count": 1,
+            "net_sharpe": 1.7447340983677695
+          }
+        },
+        {
+          "train_first_session": "2016-11-01",
+          "train_last_session": "2022-10-31",
+          "train_scoring_first_session": "2017-05-05",
+          "validation_start": "2022-11-01",
+          "validation_end_exclusive": "2023-11-01",
+          "validation_sessions": 251,
+          "selected_rule": {
+            "momentum_sessions": 126,
+            "volatility_sessions": 20,
+            "volatility_ceiling": 0.2
+          },
+          "training_trials": [
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": 0.0006386483663863428,
+              "return": -0.015981292604271724
+            },
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.040216858407085214,
+              "return": -0.04043707061610957
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": 0.1834480810043889,
+              "return": 0.06340392926633753
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": 0.16722537992810743,
+              "return": 0.06163741656042876
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": 0.23172925932341354,
+              "return": 0.07740552602650808
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": 0.2522702531534244,
+              "return": 0.09638473160796601
+            }
+          ],
+          "walk_forward": {
+            "ending_equity": 101686.96328945733,
+            "return": 0.016869632894573217,
+            "max_drawdown": 0.11187671004194544,
+            "turnover": 2.609866022740309,
+            "fees": 133.75419866860358,
+            "slippage": 267.50839733720716,
+            "fill_count": 77,
+            "net_sharpe": 0.20503136848339062
+          },
+          "fixed_rule": {
+            "ending_equity": 99786.40815384664,
+            "return": -0.0021359184615336035,
+            "max_drawdown": 0.10002484740436268,
+            "turnover": 4.3253902915087625,
+            "fees": 219.23689955893485,
+            "slippage": 438.4737991178697,
+            "fill_count": 71,
+            "net_sharpe": 0.0268161930030003
+          },
+          "fixed_weights": {
+            "ending_equity": 99509.11580010876,
+            "return": -0.004908841998912394,
+            "max_drawdown": 0.11604682810094447,
+            "turnover": 1.2263271555920283,
+            "fees": 61.79531871803168,
+            "slippage": 123.59063743606336,
+            "fill_count": 96,
+            "net_sharpe": 0.03728393452745371
+          },
+          "reference": {
+            "ending_equity": 96502.6221393707,
+            "return": -0.03497377860629303,
+            "max_drawdown": 0.154886620815732,
+            "turnover": 0.9985022466300547,
+            "fees": 49.92511233150274,
+            "slippage": 99.85022466300548,
+            "fill_count": 1,
+            "net_sharpe": -0.130713374225643
+          }
+        },
+        {
+          "train_first_session": "2016-11-01",
+          "train_last_session": "2023-10-31",
+          "train_scoring_first_session": "2017-05-05",
+          "validation_start": "2023-11-01",
+          "validation_end_exclusive": "2024-11-01",
+          "validation_sessions": 252,
+          "selected_rule": {
+            "momentum_sessions": 126,
+            "volatility_sessions": 20,
+            "volatility_ceiling": 0.2
+          },
+          "training_trials": [
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": 0.004805476370993841,
+              "return": -0.01751481231973362
+            },
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.011900149284423024,
+              "return": -0.03329410105309483
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": 0.15473938432435871,
+              "return": 0.06048246476564301
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": 0.15768812735835266,
+              "return": 0.06806647578966674
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": 0.21947255976620314,
+              "return": 0.0915371727489851
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": 0.25444173070441245,
+              "return": 0.12378145502897353
+            }
+          ],
+          "walk_forward": {
+            "ending_equity": 110536.73678762055,
+            "return": 0.10536736787620549,
+            "max_drawdown": 0.08049729047678644,
+            "turnover": 1.6052633471548572,
+            "fees": 84.38480394565411,
+            "slippage": 168.76960789130823,
+            "fill_count": 63,
+            "net_sharpe": 0.8957288790648075
+          },
+          "fixed_rule": {
+            "ending_equity": 108786.33222681023,
+            "return": 0.08786332226810245,
+            "max_drawdown": 0.08193345461419943,
+            "turnover": 2.9020235912965813,
+            "fees": 152.9041370023922,
+            "slippage": 305.8082740047844,
+            "fill_count": 70,
+            "net_sharpe": 0.7773338412447167
+          },
+          "fixed_weights": {
+            "ending_equity": 120460.67567525858,
+            "return": 0.20460675675258577,
+            "max_drawdown": 0.08402174918047367,
+            "turnover": 1.2265086253203592,
+            "fees": 62.344179595520394,
+            "slippage": 124.68835919104079,
+            "fill_count": 96,
+            "net_sharpe": 1.256891375569258
+          },
+          "reference": {
+            "ending_equity": 99806.20457992045,
+            "return": -0.0019379542007954553,
+            "max_drawdown": 0.1447249976474152,
+            "turnover": 0.9985022466300548,
+            "fees": 49.925112331502746,
+            "slippage": 99.85022466300549,
+            "fill_count": 1,
+            "net_sharpe": 0.08462663292518616
+          }
+        }
+      ],
+      "linked_validation_returns": {
+        "walk_forward": 0.13899603464050925,
+        "fixed_rule": 0.1526348236236723,
+        "fixed_weights": 0.10659586212204575,
+        "reference": 0.3378366286467662
+      }
+    },
+    "NSE": {
+      "currency": "INR",
+      "reference_ticker_label": "NIFTYBEES.NS",
+      "anchor_weights": {
+        "ADANIPORTS.NS": 0.06,
+        "HINDALCO.NS": 0.06,
+        "RELIANCE.NS": 0.18,
+        "HDFCBANK.NS": 0.18,
+        "HINDUNILVR.NS": 0.12,
+        "SUNPHARMA.NS": 0.12,
+        "POWERGRID.NS": 0.14,
+        "ITC.NS": 0.14
+      },
+      "folds": [
+        {
+          "train_first_session": "2016-11-01",
+          "train_last_session": "2018-10-31",
+          "train_scoring_first_session": "2017-05-08",
+          "validation_start": "2018-11-01",
+          "validation_end_exclusive": "2019-11-01",
+          "validation_sessions": 244,
+          "selected_rule": {
+            "momentum_sessions": 126,
+            "volatility_sessions": 20,
+            "volatility_ceiling": 0.2
+          },
+          "training_trials": [
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.0007127772534466809,
+              "return": -0.003643287205207124
+            },
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": 0.039765645820445686,
+              "return": -0.00033248058505030986
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.07047640957772129,
+              "return": -0.0097540950309698
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.016365595380602088,
+              "return": -0.006285500047847781
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": 0.2308106636852673,
+              "return": 0.01503531217051779
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": 0.3004374240320387,
+              "return": 0.024229519536791866
+            }
+          ],
+          "walk_forward": {
+            "ending_equity": 93689.83538694504,
+            "return": -0.06310164613054958,
+            "max_drawdown": 0.10317124356062657,
+            "turnover": 4.029354475327613,
+            "fees": 197.1847384018674,
+            "slippage": 394.3694768037348,
+            "fill_count": 60,
+            "net_sharpe": -0.7440699560614823
+          },
+          "fixed_rule": {
+            "ending_equity": 92609.1114979343,
+            "return": -0.07390888502065707,
+            "max_drawdown": 0.11980116244872696,
+            "turnover": 4.532584719462484,
+            "fees": 221.36520420898356,
+            "slippage": 442.7304084179671,
+            "fill_count": 68,
+            "net_sharpe": -0.7500846334282926
+          },
+          "fixed_weights": {
+            "ending_equity": 96498.71706074534,
+            "return": -0.035012829392546574,
+            "max_drawdown": 0.1643390707611173,
+            "turnover": 1.2566344040764592,
+            "fees": 62.580585947802625,
+            "slippage": 125.16117189560525,
+            "fill_count": 96,
+            "net_sharpe": -0.1654757524604688
+          },
+          "reference": {
+            "ending_equity": 100002.41193144699,
+            "return": 2.411931446988369e-05,
+            "max_drawdown": 0.14897600980078174,
+            "turnover": 0.9985022466300548,
+            "fees": 49.925112331502746,
+            "slippage": 99.85022466300549,
+            "fill_count": 1,
+            "net_sharpe": 0.0929042746779618
+          }
+        },
+        {
+          "train_first_session": "2016-11-01",
+          "train_last_session": "2019-10-31",
+          "train_scoring_first_session": "2017-05-08",
+          "validation_start": "2019-11-01",
+          "validation_end_exclusive": "2020-11-01",
+          "validation_sessions": 250,
+          "selected_rule": {
+            "momentum_sessions": 126,
+            "volatility_sessions": 20,
+            "volatility_ceiling": 0.2
+          },
+          "training_trials": [
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.34249754665591003,
+              "return": -0.06536434621949772
+            },
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.291051870620609,
+              "return": -0.06976490702686078
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.3536867619964615,
+              "return": -0.06641861063307863
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.3078241800943167,
+              "return": -0.0714706102227175
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.20545142951813106,
+              "return": -0.03372145849593067
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.13803811967422985,
+              "return": -0.02961375702813651
+            }
+          ],
+          "walk_forward": {
+            "ending_equity": 95244.08104131592,
+            "return": -0.0475591895868408,
+            "max_drawdown": 0.05734776445417944,
+            "turnover": 3.004002914441598,
+            "fees": 145.07486495703813,
+            "slippage": 290.14972991407626,
+            "fill_count": 40,
+            "net_sharpe": -0.931271125403497
+          },
+          "fixed_rule": {
+            "ending_equity": 92975.54426770718,
+            "return": -0.07024455732292811,
+            "max_drawdown": 0.10453702165929679,
+            "turnover": 4.195182362650939,
+            "fees": 200.61830367663399,
+            "slippage": 401.23660735326797,
+            "fill_count": 58,
+            "net_sharpe": -1.1729127258478094
+          },
+          "fixed_weights": {
+            "ending_equity": 91696.92919703195,
+            "return": -0.08303070802968049,
+            "max_drawdown": 0.15542258959071942,
+            "turnover": 1.2620977799517772,
+            "fees": 62.17078130044989,
+            "slippage": 124.34156260089978,
+            "fill_count": 96,
+            "net_sharpe": -0.5481433549997936
+          },
+          "reference": {
+            "ending_equity": 86248.09066644798,
+            "return": -0.13751909333552015,
+            "max_drawdown": 0.2799662962470222,
+            "turnover": 0.9985022466300548,
+            "fees": 49.925112331502746,
+            "slippage": 99.85022466300549,
+            "fill_count": 1,
+            "net_sharpe": -0.7308811252621972
+          }
+        },
+        {
+          "train_first_session": "2016-11-01",
+          "train_last_session": "2020-10-30",
+          "train_scoring_first_session": "2017-05-08",
+          "validation_start": "2020-11-01",
+          "validation_end_exclusive": "2021-11-01",
+          "validation_sessions": 247,
+          "selected_rule": {
+            "momentum_sessions": 126,
+            "volatility_sessions": 20,
+            "volatility_ceiling": 0.2
+          },
+          "training_trials": [
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.7137721663502113,
+              "return": -0.16269910047078595
+            },
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.6530839756305531,
+              "return": -0.17828534629305137
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.6013772605501255,
+              "return": -0.1374793968249325
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.5351824027647327,
+              "return": -0.1465118765159894
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.3921589411923948,
+              "return": -0.07788404568924945
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.3230816390018653,
+              "return": -0.0773783904786094
+            }
+          ],
+          "walk_forward": {
+            "ending_equity": 89659.75873753717,
+            "return": -0.10340241262462835,
+            "max_drawdown": 0.12737656168179223,
+            "turnover": 2.7162867226750538,
+            "fees": 126.59471769596044,
+            "slippage": 253.18943539192088,
+            "fill_count": 35,
+            "net_sharpe": -2.028449716363384
+          },
+          "fixed_rule": {
+            "ending_equity": 87028.87529186136,
+            "return": -0.12971124708138637,
+            "max_drawdown": 0.1533401678419405,
+            "turnover": 4.312476214482092,
+            "fees": 197.4511171171694,
+            "slippage": 394.9022342343388,
+            "fill_count": 53,
+            "net_sharpe": -1.8224842751915655
+          },
+          "fixed_weights": {
+            "ending_equity": 86087.06630767102,
+            "return": -0.13912933692328977,
+            "max_drawdown": 0.18154569766499018,
+            "turnover": 1.2563768057423292,
+            "fees": 61.31945799494436,
+            "slippage": 122.63891598988872,
+            "fill_count": 96,
+            "net_sharpe": -1.0476707513891625
+          },
+          "reference": {
+            "ending_equity": 84547.5802300194,
+            "return": -0.15452419769980597,
+            "max_drawdown": 0.23646092628373216,
+            "turnover": 0.9985022466300548,
+            "fees": 49.925112331502746,
+            "slippage": 99.85022466300549,
+            "fill_count": 1,
+            "net_sharpe": -0.9158297451622698
+          }
+        },
+        {
+          "train_first_session": "2016-11-01",
+          "train_last_session": "2021-10-29",
+          "train_scoring_first_session": "2017-05-08",
+          "validation_start": "2021-11-01",
+          "validation_end_exclusive": "2022-11-01",
+          "validation_sessions": 248,
+          "selected_rule": {
+            "momentum_sessions": 126,
+            "volatility_sessions": 20,
+            "volatility_ceiling": 0.2
+          },
+          "training_trials": [
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.9636509966901157,
+              "return": -0.2626524220557943
+            },
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.897756958651024,
+              "return": -0.2845021076432682
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.8794685073458501,
+              "return": -0.24025073798179253
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.8115961072486326,
+              "return": -0.25778861094978844
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.7032115761178014,
+              "return": -0.16213504017571545
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.6439585105125701,
+              "return": -0.17255965186265265
+            }
+          ],
+          "walk_forward": {
+            "ending_equity": 98247.39219867197,
+            "return": -0.017526078013280322,
+            "max_drawdown": 0.07509016960186976,
+            "turnover": 2.976502811027319,
+            "fees": 147.10547572148252,
+            "slippage": 294.21095144296504,
+            "fill_count": 73,
+            "net_sharpe": -0.11476868389629614
+          },
+          "fixed_rule": {
+            "ending_equity": 97992.71090961248,
+            "return": -0.020072890903875207,
+            "max_drawdown": 0.07894590412959546,
+            "turnover": 4.692768345526716,
+            "fees": 233.0233287444068,
+            "slippage": 466.0466574888136,
+            "fill_count": 72,
+            "net_sharpe": -0.18245488529328727
+          },
+          "fixed_weights": {
+            "ending_equity": 108743.53131564584,
+            "return": 0.08743531315645847,
+            "max_drawdown": 0.07786504739987243,
+            "turnover": 1.2055405896431695,
+            "fees": 61.095377144145004,
+            "slippage": 122.19075428829001,
+            "fill_count": 96,
+            "net_sharpe": 0.6787448549820484
+          },
+          "reference": {
+            "ending_equity": 119593.05556235624,
+            "return": 0.19593055562356243,
+            "max_drawdown": 0.09347830058965934,
+            "turnover": 0.9947111954445989,
+            "fees": 49.73555977222994,
+            "slippage": 99.47111954445988,
+            "fill_count": 1,
+            "net_sharpe": 1.1118598300074902
+          }
+        },
+        {
+          "train_first_session": "2016-11-01",
+          "train_last_session": "2022-10-31",
+          "train_scoring_first_session": "2017-05-08",
+          "validation_start": "2022-11-01",
+          "validation_end_exclusive": "2023-11-01",
+          "validation_sessions": 248,
+          "selected_rule": {
+            "momentum_sessions": 126,
+            "volatility_sessions": 20,
+            "volatility_ceiling": 0.2
+          },
+          "training_trials": [
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.8662393433607215,
+              "return": -0.29982898524818624
+            },
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.8136486896625772,
+              "return": -0.32152326929344954
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.7676584725432706,
+              "return": -0.2649970571507084
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.7161266880769407,
+              "return": -0.2837543221067209
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.5582356398861024,
+              "return": -0.18421722344519775
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.5029806582201392,
+              "return": -0.19236959620384264
+            }
+          ],
+          "walk_forward": {
+            "ending_equity": 91531.31886543603,
+            "return": -0.08468681134563971,
+            "max_drawdown": 0.09673204936987967,
+            "turnover": 2.58731748836273,
+            "fees": 125.25520709920687,
+            "slippage": 250.51041419841374,
+            "fill_count": 27,
+            "net_sharpe": -1.7271998717412291
+          },
+          "fixed_rule": {
+            "ending_equity": 93401.2704138666,
+            "return": -0.065987295861334,
+            "max_drawdown": 0.0847412811211431,
+            "turnover": 2.8684032081802995,
+            "fees": 139.63309550722875,
+            "slippage": 279.2661910144575,
+            "fill_count": 30,
+            "net_sharpe": -1.329634502858015
+          },
+          "fixed_weights": {
+            "ending_equity": 79935.20705819104,
+            "return": -0.20064792941808962,
+            "max_drawdown": 0.2763716895325258,
+            "turnover": 1.2296680917200418,
+            "fees": 60.074710652692175,
+            "slippage": 120.14942130538435,
+            "fill_count": 96,
+            "net_sharpe": -1.3547701440433952
+          },
+          "reference": {
+            "ending_equity": 83583.08742607264,
+            "return": -0.16416912573927356,
+            "max_drawdown": 0.2519933385623946,
+            "turnover": 0.9979079848351828,
+            "fees": 49.895399241759144,
+            "slippage": 99.79079848351829,
+            "fill_count": 1,
+            "net_sharpe": -0.8624463485340573
+          }
+        },
+        {
+          "train_first_session": "2016-11-01",
+          "train_last_session": "2023-10-31",
+          "train_scoring_first_session": "2017-05-08",
+          "validation_start": "2023-11-01",
+          "validation_end_exclusive": "2024-11-01",
+          "validation_sessions": 246,
+          "selected_rule": {
+            "momentum_sessions": 126,
+            "volatility_sessions": 20,
+            "volatility_ceiling": 0.2
+          },
+          "training_trials": [
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.9334587160468308,
+              "return": -0.3513027177088808
+            },
+            {
+              "rule": {
+                "momentum_sessions": 42,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.8921677713240651,
+              "return": -0.38006105103215204
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.7868961418018545,
+              "return": -0.29786402121431166
+            },
+            {
+              "rule": {
+                "momentum_sessions": 63,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.7479084049742077,
+              "return": -0.3235713820850634
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.15
+              },
+              "net_sharpe": -0.6429651485334615,
+              "return": -0.23081562913135534
+            },
+            {
+              "rule": {
+                "momentum_sessions": 126,
+                "volatility_sessions": 20,
+                "volatility_ceiling": 0.2
+              },
+              "net_sharpe": -0.6136760952071177,
+              "return": -0.2531785232880771
+            }
+          ],
+          "walk_forward": {
+            "ending_equity": 100710.76191541296,
+            "return": 0.0071076191541297185,
+            "max_drawdown": 0.027082252295789977,
+            "turnover": 1.4845086067736506,
+            "fees": 74.27599633354254,
+            "slippage": 148.55199266708507,
+            "fill_count": 21,
+            "net_sharpe": 0.2559947753138529
+          },
+          "fixed_rule": {
+            "ending_equity": 98476.92602579252,
+            "return": -0.015230739742074784,
+            "max_drawdown": 0.050964254021919064,
+            "turnover": 2.4791996931366405,
+            "fees": 122.54422411271574,
+            "slippage": 245.08844822543148,
+            "fill_count": 34,
+            "net_sharpe": -0.32142253770625856
+          },
+          "fixed_weights": {
+            "ending_equity": 86806.26021523026,
+            "return": -0.13193739784769742,
+            "max_drawdown": 0.22440921870581465,
+            "turnover": 1.2207006471551076,
+            "fees": 60.09180998943085,
+            "slippage": 120.1836199788617,
+            "fill_count": 96,
+            "net_sharpe": -0.9021869012467826
+          },
+          "reference": {
+            "ending_equity": 83530.56696609831,
+            "return": -0.16469433033901693,
+            "max_drawdown": 0.28499283882660587,
+            "turnover": 0.9985022466300548,
+            "fees": 49.925112331502746,
+            "slippage": 99.85022466300549,
+            "fill_count": 1,
+            "net_sharpe": -0.9048168504568621
+          }
+        }
+      ],
+      "linked_validation_returns": {
+        "walk_forward": -0.2754061043248903,
+        "fixed_rule": -0.3245909785891029,
+        "fixed_weights": -0.42521315195808296,
+        "reference": -0.39112106766450583
+      }
+    }
+  }
+}

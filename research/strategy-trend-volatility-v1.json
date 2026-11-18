@@ -1,0 +1,23 @@
+{
+  "id": "quantedge-trend-volatility-v1",
+  "baseline_id": "us-nse-four-profile-v1",
+  "baseline_sha256": "e1eaa112ec21e1a43c5728347ac04d58300f5ed4291b20eee98826d15556f59f",
+  "development_start": "2016-11-01",
+  "development_end_exclusive": "2024-11-01",
+  "holdout_end_exclusive": "2026-11-01",
+  "default_rule": {
+    "momentum_sessions": 63,
+    "volatility_sessions": 20,
+    "volatility_ceiling": 0.20
+  },
+  "walk_forward_grid": [
+    {"momentum_sessions": 42, "volatility_sessions": 20, "volatility_ceiling": 0.15},
+    {"momentum_sessions": 42, "volatility_sessions": 20, "volatility_ceiling": 0.20},
+    {"momentum_sessions": 63, "volatility_sessions": 20, "volatility_ceiling": 0.15},
+    {"momentum_sessions": 63, "volatility_sessions": 20, "volatility_ceiling": 0.20},
+    {"momentum_sessions": 126, "volatility_sessions": 20, "volatility_ceiling": 0.15},
+    {"momentum_sessions": 126, "volatility_sessions": 20, "volatility_ceiling": 0.20}
+  ],
+  "fee_bps": 5,
+  "slippage_bps": 10
+}

@@ -1,6 +1,6 @@
 # QuantEdge research deployment plan
 
-Ready for review. Approval of this plan starts Phase 1. The data split and final evaluation each require separate approval.
+The deployment plan and proposed split dates are approved. The [strategy deliverable](research/trend-volatility-strategy.md) runs on synthetic data while the complete source snapshot is pending. Register the actual manifest before sealing partitions. The final evaluation still requires separate approval.
 
 ## Architecture
 

@@ -17,9 +17,11 @@ END = date(2024, 1, 1)
 SEED = 4127
 
 
-def synthetic_sessions(market: str, tickers: set[str]) -> tuple[Session, ...]:
+def synthetic_sessions(
+    market: str, tickers: set[str], *, start: date = START, end: date = END,
+) -> tuple[Session, ...]:
     """Assign reproducible fabricated prices to local exchange sessions."""
-    schedule = session_schedule(market, START, END)
+    schedule = session_schedule(market, start, end)
     market_random = Random(int.from_bytes(sha256(f"{SEED}:{market}".encode()).digest()[:8]))
     asset_random = {
         ticker: Random(int.from_bytes(sha256(f"{SEED}:{market}:{ticker}".encode()).digest()[:8]))
