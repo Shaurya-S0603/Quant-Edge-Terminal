@@ -1,62 +1,57 @@
-> **QuantEdge v3 migration (in development):** The Next.js + FastAPI rebuild is being verified stage-by-stage. The last released Streamlit v2.1.1 website remains usable and is not being deleted. For the new developer preview, see [v3 Phase 0 quickstart](docs/V3_PHASE0_QUICKSTART.md) and [master roadmap](docs/V3_REBUILD_MASTER_PLAN.md). The preview serves fictional research data and no brokerage actions.
+# QuantEdge
 
-# QuantEdge 2.1.1 | Free Personal Streamlit Strategy Website
+Historical strategy backtesting and quantitative equity research for US and Indian NSE markets. Built by Shaurya Singhal.
 
-QuantEdge is a **single-user, local-first Streamlit** market research, interactive charting, strategy backtesting, and paper-only trading workstation. No paid API, cloud database, broker login, Next.js backend, or subscription required.
+[Open the private Strategy Lab](https://quantedge-strategy-lab.skippingepoch8.chatgpt.site) · [Backtest methodology](research/yahoo-development-replay.md) · [Data and holdout protocol](research/README.md)
 
-**All quotes are historical/cached or best-effort delayed. No guarantee of live executable prices, future returns or investment advice. All trades are simulated.**
+## Test your own symbols
 
-## Start on your computer
+1. Open **Test your own symbols** and enter up to five Yahoo tickers. Try `AAPL, MSFT` for US equities or `INFY.NS, TCS.NS` for NSE. Use one market per run.
+2. Select **Trend and volatility**, **Moving-average crossover**, or **Buy and hold**. Set the dates, strategy parameters, and modeled costs per trade side.
+3. On the hosted Site, select one CSV per ticker. Name each file after its symbol, such as `AAPL.csv`, and include `Date` or `session`, `Open`, `Close`, and `Adj Close`. Your files stay in your browser. In the local app, leave the file picker blank to fetch historical bars directly from Yahoo Finance.
+4. Run the test to see net and gross equity, drawdown, total return, CAGR for windows of at least a year, trade count, and a net equal-weight buy-and-hold comparison. Edit the ticker field to add, replace, or remove symbols and run again.
 
-1. Install Python 3.12, 3.13 or 3.14.
-2. Run: pip install -r requirements.txt
-3. Run: streamlit run app.py
-4. In Market Explorer add stock/ETF/index tickers and explicitly fetch free-provider historical OHLCV.
-5. Study Trading Charts, save layouts, create rules in Strategy Builder, backtest and compare runs, then practice with manual or strategy paper accounts.
+The tester accepts dates from **November 1, 2016 through October 31, 2024**. It can use earlier eligible closes for warm-up and reports the actual shared scoring dates. When a price is missing for part of the basket, the tester omits that date across the basket. Uploaded files must be restricted to the development window.
 
-Optional once-only offline worker: python workspace_worker.py. Add --refresh to explicitly request new historical data first. A local scheduler is required for recurring alert checks.
+## Run locally with Yahoo Finance
 
-## Core pages
+Use Python 3.12. Open the repository folder in VS Code and run the commands in its terminal.
 
-| Page | Functionality |
-|---|---|
-| Overview | Tracked symbols, historical saved closes, paper practice summary, recent alerts |
-| Market Explorer | Ticker lookup, multiple saved watchlists, historical OHLCV download and cache |
-| Trading Charts | Interactive Plotly candles/OHLC/line/area, volume histogram, SMA/EMA/WMA/RSI/MACD/BB/VWAP/ATR and other indicators; chart layouts and simulated BUY/SELL markers |
-| Stock Research | Optional available company profiles, fundamentals, and linked news |
-| Stock Screener | Cached price, change, volume, RSI and SMA filters, saved rules and CSV export |
-| Strategy Builder | Validated versioned JSON; entry/exit rule groups, sizing, stops, trailing exits and modeled costs |
-| Backtest Lab | Next-bar long-only historical fills, fees, positions, trade journal, risk metrics, equity curve, drawdowns, monthly returns and buy/hold benchmark |
-| Compare Runs | Compare saved results with period, provider and cost compatibility warnings |
-| Manual Paper Trading | Independent BUY/SELL practice at last completed cached daily close, fee/slippage and persistent account journal |
-| Strategy Simulations | Independent opt-in automated rule simulations on completed saved bars |
-| Local Alerts | Price, RSI, SMA and rule signals; saved in-app notification history |
-| Backup & Data | SQLite integrity checks, workspace and optional legacy paper archive, verified staged restore, strict OHLCV CSV |
+**Windows PowerShell**
 
-## Technology and free operation
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --require-hashes -r research/requirements-py312.lock
+$env:PYTHONPATH = 'src'
+.\.venv\Scripts\python.exe -m quantedge_research.lab serve
+```
 
-Frontend Streamlit. Charts Plotly. Backtests custom causal Pandas/NumPy engines. SQLite/SQLAlchemy persistence. Pydantic rule validation. Best-effort yfinance public historical provider. Automated tests with pytest and GitHub Actions.
+**macOS and Linux**
 
-## Legacy cleanup
+```bash
+python3.12 -m venv .venv
+.venv/bin/python -m pip install --require-hashes -r research/requirements-py312.lock
+PYTHONPATH=src .venv/bin/python -m quantedge_research.lab serve
+```
 
-QuantEdge 2.1 removes the old ML forecasting/AI Trader UI, duplicate dashboards/backtests, unused FastAPI server, old launchers and obsolete test suites. Old SQLite paper-trading data at .data/paper_trading.db is NOT deleted. Backup & Data still includes the older file when present for archival recovery.
+Open [localhost:8765](http://127.0.0.1:8765). The app includes the frozen historical report and fetches data for custom symbols on demand. Yahoo can rate-limit requests or lack history for specific symbols. CSV input works in either version.
 
-## Important limitations
+To export ticker CSVs into the ignored `.data/exports/` directory, run the same Python command with `export AAPL MSFT` in place of `serve`. Use Yahoo symbol syntax, including the `.NS` suffix for NSE and `BRK-B` for Berkshire Hathaway Class B.
 
-- No guaranteed streaming, exchange status or complete pre/post-market coverage from the free provider.
-- Fundamental screeners are not whole-market/valuation screeners: cached technical screening is supported, news/fundamentals are best-effort on demand.
-- Each strategy or manual simulated account holds one instrument, but multiple independent portfolios are supported. Currency conversion and multi-symbol optimization are outside this scope.
-- Historical next-open execution is deterministic and conservative, not evidence of future profitability or today's executable fills.
-- Manual orders fill at saved completed historical candles, not a broker or live exchange.
-- In-app alerts are not phone/email push notifications. External scheduling and persistent local disk are needed for continuing operation.
-- Local single-user design has no public authentication; do not expose an unauthenticated instance or private backup archives on the internet.
-- Streamlit Community Cloud has ephemeral local storage; use local operation and private backups for durable research history.
+## Research design
 
-Docs: docs/PRODUCT_SPEC.md, docs/PHASE_3_STRATEGIES_BACKTESTS.md, docs/PHASE_5_OPERATIONS.md.
+| Path | Role |
+| --- | --- |
+| [`research/site/`](research/site/) | Strategy Lab, browser replay engine, and frozen portfolio-only chart data |
+| [`src/quantedge_research/`](src/quantedge_research/) | Local Yahoo adapter, data audits, next-open portfolio ledger, walk-forward evaluation, bootstrap, and single-use holdout registry |
+| [`research/`](research/) | Pinned strategy and universe, source audits, reproducibility instructions, and tests |
 
+The custom tester uses equal starting weights. Trend and volatility holds an allocation in cash after nonpositive momentum and scales down volatile positions. Moving-average crossover holds an allocation when the fast average exceeds the slow one. Both rules rebalance monthly after a completed close, with modeled fills at the next shared open. The benchmark buys once after the first scoring close. Adjusted prices approximate total returns. Cash earns zero.
 
-## Publish the interactive website and learn to use it
+The frozen study uses an approved 16-stock universe, two local ETFs, six walk-forward checks, and a 2,000-path moving-block bootstrap. It showed lower drawdowns and lower returns than the fixed-weight basket in both markets. That exploratory study did not establish a statistical edge. Provider adjustments, survivorship and selection bias, gaps, and the simplified fill model limit both analyses. The custom tester cannot access the November 2024–October 2026 holdout, which remains outside interactive research.
 
-The **Start Here** page includes a first-time tutorial and a one-click, explicitly fictional QEDMO practice dataset. For free Streamlit Community Cloud hosting, choose **Shaurya-S0603/Quant-Edge-Terminal**, branch **main**, entrypoint **app.py**, Python **3.12**, and add the root-level Streamlit secret `QUANTEDGE_PUBLIC_DEMO = "1"`. This keeps each visitor's temporary paper workspace isolated. Cloud data is not durable, so download your backups or run privately on your own computer.
+## Verify
 
-Follow the full [Website deployment and usage tutorial](docs/STREAMLIT_WEBSITE_TUTORIAL.md). The application cannot be treated as a live brokerage or guaranteed real-time market feed.
+After installing the locked Python dependencies, run `python -m pytest` with the environment’s Python. With Node.js 22 or newer, run `node --test research/tests/test_symbol_replay.mjs`. Both checks are offline.
+
+The earlier Streamlit and Next.js/FastAPI implementations are available in [Git history](https://github.com/Shaurya-S0603/Quant-Edge-Terminal/commit/42ed37c8e8e5dc686d8a1d93856bb1dab449f58c) and the [release archive](https://github.com/Shaurya-S0603/Quant-Edge-Terminal/releases).

@@ -1,20 +1,14 @@
 __pycache__/
 .pytest_cache/
 *.py[cod]
+*.egg-info/
 .venv/
+.venv-research/
 .env
 .env.*
-.streamlit/secrets.toml
 .data/
-paper_trading.db
 *.db
 *.sqlite
 *.sqlite3
 .DS_Store
 Thumbs.db
-
-# Next.js and node build artifacts
-**/node_modules/
-**/.next/
-**/*.tsbuildinfo
-npm-debug.log*

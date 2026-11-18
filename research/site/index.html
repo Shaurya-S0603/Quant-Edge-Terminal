@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Test strategies on your own US and NSE stock symbols and explore historical backtests and Monte Carlo simulations.">
+  <meta name="theme-color" content="#080f1d">
+  <title>QuantEdge | Strategy Lab</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+  <script type="module" src="tester.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to research</a>
+  <header class="top">
+    <div class="shell top-inner">
+      <a class="brand" href="#main"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>Quant<span>Edge</span></a>
+      <nav aria-label="Report sections"><a href="#tester">Test symbols</a><a href="#backtest">Backtest</a><a href="#simulation">Simulation</a><a href="#method">Methodology</a></nav>
+      <a class="source-top" href="https://github.com/Shaurya-S0603/Quant-Edge-Terminal">Project source <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+  <main class="shell" id="main">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span aria-hidden="true"></span> Strategy lab <span class="slash">/</span> Historical research</div>
+        <h1 id="page-title">Trend <em>&amp;</em> Volatility</h1>
+        <p>A monthly equity strategy that cuts exposure when momentum turns negative or volatility rises. Compare the cost of that protection across US and Indian stocks.</p>
+        <a class="action hero-action" href="#tester">Test your own symbols <span aria-hidden="true">↓</span></a>
+      </div>
+      <aside class="hero-meta" aria-label="Research scope">
+        <div class="state"><span aria-hidden="true"></span> Development replay</div>
+        <div><span class="meta-label">Data window</span><strong>Nov 2016 – Oct 2024</strong></div>
+        <div><span class="meta-label">Final holdout</span><strong>Nov 2024 – Oct 2026 <small>Unused</small></strong></div>
+      </aside>
+    </section>
+
+    <section id="tester" class="tester" aria-labelledby="tester-title">
+      <div class="section-head">
+        <div><h2 id="tester-title">Test your own symbols</h2><p class="section-copy">Choose a strategy and compare its historical performance with equal-weight buy and hold.</p></div>
+        <span class="test-status">Development data only</span>
+      </div>
+      <form id="test-form" class="panel test-form">
+        <div class="form-grid">
+          <label class="symbol-field">Stock symbols <input id="symbols" name="symbols" type="text" placeholder="AAPL, MSFT" maxlength="100" autocomplete="off" spellcheck="false" required aria-describedby="symbol-help"><small id="symbol-help">Up to five US or NSE tickers. Use .NS for NSE.</small></label>
+          <label>Strategy <select id="test-rule"><option value="trend">Trend and volatility</option><option value="sma">Moving-average crossover</option><option value="hold">Buy and hold</option></select></label>
+          <label>Start date <input id="test-from" type="date" value="2019-01-01" min="2016-11-01" max="2024-10-31" required></label>
+          <label>End date <input id="test-to" type="date" value="2024-10-31" min="2016-11-01" max="2024-10-31" required></label>
+          <label data-rule-options="trend">Momentum sessions <input id="momentum" type="number" value="63" min="5" max="250" step="1" required></label>
+          <label data-rule-options="trend">Volatility ceiling (%) <input id="volatility-cap" type="number" value="20" min="5" max="100" step="1" required></label>
+          <label data-rule-options="sma" hidden>Fast average (sessions) <input id="sma-fast" type="number" value="50" min="2" max="249" required disabled></label>
+          <label data-rule-options="sma" hidden>Slow average (sessions) <input id="sma-slow" type="number" value="200" min="3" max="250" required disabled></label>
+          <label>Costs per side (bps) <input id="test-cost" type="number" value="15" min="0" max="500" step="any" required></label>
+        </div>
+        <div class="upload-row">
+          <label for="test-files">Daily price CSVs</label>
+          <input id="test-files" type="file" accept=".csv,text/csv" multiple aria-describedby="csv-help source-help">
+          <p id="csv-help">Name each file after its ticker (for example, AAPL.csv). Include Date, Open, Close and Adj Close. Export only Nov 2016–Oct 2024.</p>
+        </div>
+        <div class="form-footer"><p id="source-help">On this hosted site, select one CSV per symbol. Your files stay in your browser. <a href="https://github.com/Shaurya-S0603/Quant-Edge-Terminal#run-locally-with-yahoo-finance">Get CSVs or run locally ↗</a></p><button id="run-test" class="action" type="submit">Run historical test</button></div>
+        <p id="test-state" class="note" role="status"></p>
+        <p id="test-error" class="error" role="alert" hidden></p>
+      </form>
+      <article class="panel custom-results" id="test-result" aria-labelledby="test-result-title" hidden>
+        <div class="panel-heading">
+          <div><h3 id="test-result-title">Custom replay</h3><p id="test-result-scope"></p></div>
+          <div class="segment compact" id="custom-views" role="group" aria-label="Custom chart view">
+            <button type="button" data-custom-view="equity" aria-pressed="true">Growth</button>
+            <button type="button" data-custom-view="drawdown" aria-pressed="false">Drawdown</button>
+          </div>
+        </div>
+        <div class="plot" id="custom-plot"></div>
+        <div class="legend"><span><i class="line net"></i>Strategy net</span><span><i class="line gross"></i>Strategy gross</span><span><i class="line fixed"></i>Buy and hold net</span></div>
+        <div class="table-scroll" role="region" aria-label="Custom strategy performance" tabindex="0"><table>
+          <thead><tr><th scope="col">Portfolio</th><th scope="col">Return</th><th scope="col">CAGR</th><th scope="col">Max. drawdown</th><th scope="col">Fills</th></tr></thead>
+          <tbody id="custom-metrics"></tbody>
+        </table></div>
+        <p id="test-notes" class="note"></p>
+        <p class="note">Signals use completed closes. Fills use the next shared open proxy. The test uses equal starting weights, zero cash yield and adjusted prices.</p>
+      </article>
+    </section>
+
+    <section id="backtest" aria-labelledby="backtest-title">
+      <div class="section-head">
+        <div><h2 id="backtest-title">Historical replay</h2><p id="coverage" class="section-copy">Loading development results…</p></div>
+        <div class="segment" id="markets" role="group" aria-label="Market">
+          <button type="button" data-market="US" aria-pressed="true">US <small>USD</small></button>
+          <button type="button" data-market="NSE" aria-pressed="false">India <small>INR</small></button>
+        </div>
+      </div>
+      <p id="error" class="error" role="alert" hidden></p>
+      <div id="report" hidden>
+        <div class="stats" id="stats" aria-live="polite"></div>
+        <div class="chart-grid">
+          <article class="panel historical" aria-labelledby="equity-title">
+            <div class="panel-heading">
+              <div><h3 id="equity-title">Equity curve</h3><p id="scoring"></p></div>
+              <div class="segment compact" id="views" role="group" aria-label="Historical chart view">
+                <button type="button" data-view="equity" aria-pressed="true">Growth</button>
+                <button type="button" data-view="drawdown" aria-pressed="false">Drawdown</button>
+              </div>
+            </div>
+            <div id="historical-plot" class="plot"></div>
+            <div id="historical-legend" class="legend" aria-label="Equity curve legend"></div>
+            <p id="benchmark-note" class="note" hidden></p>
+          </article>
+          <article class="panel simulation" id="simulation" aria-labelledby="simulation-title">
+            <div class="panel-heading">
+              <div><h3 id="simulation-title">Monte Carlo</h3><p>2,000 paths · 252 sessions</p></div>
+              <label class="visually-hidden" for="block">Bootstrap block length</label>
+              <select id="block"><option value="10">10-day blocks</option><option value="20" selected>20-day blocks</option><option value="60">60-day blocks</option></select>
+            </div>
+            <div id="simulation-plot" class="plot"></div>
+            <div class="legend">
+              <span><i class="line net"></i>Strategy median</span>
+              <span><i class="band"></i>5th–95th percentile</span>
+              <span><i class="line fixed"></i>Basket median</span>
+            </div>
+            <p class="note">Paired blocks of realized returns. The bands describe resampled history.</p>
+          </article>
+        </div>
+        <section class="reading" aria-labelledby="finding-title">
+          <div><div class="eyebrow"><span aria-hidden="true"></span> Result</div><h2 id="finding-title">Smaller losses.<br>Slower growth.</h2></div>
+          <div><p id="finding"></p><p id="scenario"></p></div>
+        </section>
+        <div class="table-grid">
+          <section class="panel table-panel" aria-labelledby="performance-title">
+            <div class="panel-heading"><div><h3 id="performance-title">Performance comparison</h3><p>Continuous replay after signal warm-up</p></div></div>
+            <div class="table-scroll" role="region" aria-label="Performance metrics" tabindex="0"><table>
+              <thead><tr><th scope="col">Portfolio</th><th scope="col">CAGR</th><th scope="col">Vol.</th><th scope="col">Max. DD</th><th scope="col">Sharpe</th></tr></thead>
+              <tbody id="performance"></tbody>
+            </table></div>
+          </section>
+          <section class="panel table-panel" aria-labelledby="folds-title">
+            <div class="panel-heading"><div><h3 id="folds-title">Walk-forward checks</h3><p>Six folds inside development · annual net returns</p></div></div>
+            <div class="table-scroll" role="region" aria-label="Walk-forward returns" tabindex="0"><table>
+              <thead><tr><th scope="col">Fold start</th><th scope="col">Fixed rule</th><th scope="col">Tuned rule</th><th scope="col">Fixed basket</th></tr></thead>
+              <tbody id="folds"></tbody>
+            </table></div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="method" id="method" aria-labelledby="method-title">
+      <div class="section-head"><div><div class="eyebrow"><span aria-hidden="true"></span> Research notes</div><h2 id="method-title">How the test works</h2></div></div>
+      <div class="method-grid">
+        <article><h3>Signal and sizing</h3><p>Keep each stock at or below its starting basket weight. Hold the allocation in cash if its 63-session return is nonpositive. If 20-session annualized volatility exceeds 20%, scale the target by 20% divided by observed volatility.</p></article>
+        <article><h3>Execution and costs</h3><p>Set orders after the first observed close each month and model fills at the next observed open. Charge 5 bps in fees plus 10 bps in slippage per side. Cash earns zero. Compare each market in its own currency.</p></article>
+        <article><h3>Historical inputs</h3><p>Yahoo Finance adjusted close and OHLC supply a total-return price proxy. Two NSE sessions are absent. Vendor adjustments and a retrospectively chosen basket limit what this replay can establish. <a href="https://help.yahoo.com/kb/SLN28256.html">Yahoo Finance methodology ↗</a></p></article>
+        <article><h3>Validation boundary</h3><p>In each fold, six parameter pairs compete using earlier dates only. The simulation resamples development returns in contiguous blocks. No corrected statistical edge is established. The single-use holdout was never queried for this report. <a href="https://doi.org/10.1214/aos/1176347265">Moving-block bootstrap ↗</a></p></article>
+      </div>
+    </section>
+  </main>
+  <footer class="shell footer"><strong>QuantEdge</strong><span>Made by Shaurya Singhal</span><a href="https://github.com/Shaurya-S0603/Quant-Edge-Terminal">GitHub ↗</a></footer>
+</body>
+</html>
