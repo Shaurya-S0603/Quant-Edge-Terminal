@@ -1,7 +1,6 @@
 # QuantEdge v3 Phase 0 Quickstart
 
-A verified full-stack research DEMO runs in parallel with Streamlit v2.1.1.
-The new app is on branch v3-phase0-nextjs-fastapi-foundation until tests pass.
+These steps run the existing full-stack preview alongside Streamlit v2.1.1. See the [research deployment plan](../DEPLOYMENT.md) for the ten-year research build.
 
 ## Docker (recommended for first integration)
 Requirements: Docker Engine and docker compose.
@@ -38,6 +37,8 @@ In another shell:
     cp .env.example .env.local
     npm run dev
 
+In Windows PowerShell, use `npm.cmd install`, `Copy-Item .env.example .env.local`, and `npm.cmd run dev`.
+
 Visit http://localhost:3000 and verify the API connection banner. Local
 PostgreSQL and Redis are optional for the fictional demo; dependency health
 truthfully reports "not configured" without environment variables.
@@ -49,16 +50,12 @@ truthfully reports "not configured" without environment variables.
    broker or a live market-data feed.
 4. "Run fictional backtest" sends a validated request through Next.js to
    FastAPI, reusing the previous causally tested Python backtest.
-5. API /api/v1/market/MSFT/ohlcv returns 404 until a real data provider is
-   explicitly integrated, rather than fabricating live prices.
+5. Real-symbol history is disabled by default. The optional historical adapter is a local preview with at most one year of history.
 6. GitHub Actions must pass both the old Python test suite and the new
    production Node build + full HTTP/Postgres/Redis integration probe.
 
-## Current limitations
-No real-data provider, authentication, durable account write, Redis caching,
-background jobs, or cloud deployment in **Phase 0**. Database/Redis are
-probed for connectivity only, not used to hold portfolios. Do not expose
-public write endpoints until authentication and storage isolation are done.
+## Preview boundaries
+The default research preview uses synthetic fixtures. The separate [watchlist setup](V3_PHASE1B_AUTH_STORAGE.md) covers GitHub sign-in, persistent watchlists and Redis. These steps do not deploy the research evaluator.
 
 For local durable research during the rebuild, keep using the existing
 Streamlit entrypoint:
