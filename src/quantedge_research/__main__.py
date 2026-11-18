@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 import sys
 
+from .baseline import load_baseline
 from .data import Instrument, audit_bars, read_csv
 from .split import Split
 
@@ -16,8 +17,17 @@ def coverage_report(args: argparse.Namespace) -> dict:
     now = datetime.now(UTC)
     if split.end_exclusive > now.date().replace(day=1):
         raise ValueError("Choose an end date after a completed month.")
-    with args.universe.open(newline="", encoding="utf-8-sig") as stream:
-        instruments = [Instrument(**row) for row in csv.DictReader(stream)]
+    baseline = load_baseline(args.baseline) if args.baseline else None
+    if baseline:
+        if baseline.screening_end_exclusive > split.holdout_start:
+            raise ValueError("The proposed holdout overlaps portfolio screening dates.")
+        if baseline.screening_start < split.start:
+            raise ValueError("Portfolio screening starts before the proposed development window.")
+        instruments = baseline.instruments
+    else:
+        universe = args.universe or Path("research/starter-universe.csv")
+        with universe.open(newline="", encoding="utf-8-sig") as stream:
+            instruments = tuple(Instrument(**row) for row in csv.DictReader(stream))
     if not instruments or len({item.instrument_id for item in instruments}) != len(instruments):
         raise ValueError("Instrument IDs must be unique and the universe cannot be empty.")
     if len({(item.market, item.ticker) for item in instruments}) != len(instruments):
@@ -57,12 +67,15 @@ def coverage_report(args: argparse.Namespace) -> dict:
             "Prior exposure, universe membership, delistings and action provenance require independent review.",
         ],
         "requested": len(instruments), "audits": rows, "failures": failures,
+        **({"baseline": {"id": baseline.baseline_id, "sha256": baseline.digest}} if baseline else {}),
     }
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--universe", type=Path, default=Path("research/starter-universe.csv"))
+    source = parser.add_mutually_exclusive_group()
+    source.add_argument("--universe", type=Path, help="Universe CSV. Defaults to the starter list.")
+    source.add_argument("--baseline", type=Path, help="Versioned comparison portfolio JSON.")
     parser.add_argument("--end-exclusive", type=date.fromisoformat, required=True)
     parser.add_argument("--prices-dir", type=Path, help="Omit to query Yahoo once per symbol.")
     parser.add_argument("--source-name", default="local CSV files")

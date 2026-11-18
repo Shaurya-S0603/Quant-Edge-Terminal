@@ -4,7 +4,8 @@ QuantEdge is being rebuilt as a historical equity research platform by Shaurya S
 
 - [Research architecture and deployment plan](DEPLOYMENT.md)
 - [Repository and data audit](docs/RESEARCH_BASELINE.md)
-- [Phase 1 setup and data contract](research/README.md) and [coverage findings](research/coverage-audit-2026-11-18.md)
+- [Phase 1 setup and data contract](research/README.md)
+- [Approved comparison portfolio](research/approved-portfolio-v1.json) and [coverage audit](research/approved-portfolio-audit-2026-11-18.md)
 - [Existing preview quickstart](docs/V3_PHASE0_QUICKSTART.md) and [watchlist setup](docs/V3_PHASE1B_AUTH_STORAGE.md)
 - [Streamlit v2.1.1 archive](docs/archive/v2/README.md) and [published release](https://github.com/Shaurya-S0603/Quant-Edge-Terminal/releases/tag/v2.1.1)
 

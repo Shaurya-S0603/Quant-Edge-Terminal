@@ -1,0 +1,201 @@
+{
+  "version": 1,
+  "baseline_id": "us-nse-four-profile-v1",
+  "approved_on": "2026-11-18",
+  "screening_returns": {
+    "start": "2021-11-01",
+    "end_exclusive": "2024-11-01"
+  },
+  "holdings": [
+    {
+      "instrument_id": "us:nvda",
+      "ticker": "NVDA",
+      "market": "US",
+      "currency": "USD",
+      "name": "NVIDIA",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "profile": "high_volatility",
+      "target_weight_bps": 300
+    },
+    {
+      "instrument_id": "us:tsla",
+      "ticker": "TSLA",
+      "market": "US",
+      "currency": "USD",
+      "name": "Tesla",
+      "sector": "Consumer discretionary",
+      "industry": "Automakers",
+      "profile": "high_volatility",
+      "target_weight_bps": 300
+    },
+    {
+      "instrument_id": "nse:adaniports",
+      "ticker": "ADANIPORTS.NS",
+      "market": "NSE",
+      "currency": "INR",
+      "name": "Adani Ports and Special Economic Zone",
+      "sector": "Industrials",
+      "industry": "Ports and logistics",
+      "profile": "high_volatility",
+      "target_weight_bps": 300
+    },
+    {
+      "instrument_id": "nse:hindalco",
+      "ticker": "HINDALCO.NS",
+      "market": "NSE",
+      "currency": "INR",
+      "name": "Hindalco Industries",
+      "sector": "Materials",
+      "industry": "Aluminum and copper",
+      "profile": "high_volatility",
+      "target_weight_bps": 300
+    },
+    {
+      "instrument_id": "us:msft",
+      "ticker": "MSFT",
+      "market": "US",
+      "currency": "USD",
+      "name": "Microsoft",
+      "sector": "Technology",
+      "industry": "Enterprise software and cloud",
+      "profile": "liquid_large_cap",
+      "target_weight_bps": 900
+    },
+    {
+      "instrument_id": "us:amzn",
+      "ticker": "AMZN",
+      "market": "US",
+      "currency": "USD",
+      "name": "Amazon.com",
+      "sector": "Consumer discretionary",
+      "industry": "Online retail and cloud",
+      "profile": "liquid_large_cap",
+      "target_weight_bps": 900
+    },
+    {
+      "instrument_id": "nse:reliance",
+      "ticker": "RELIANCE.NS",
+      "market": "NSE",
+      "currency": "INR",
+      "name": "Reliance Industries",
+      "sector": "Energy",
+      "industry": "Integrated energy and diversified operations",
+      "profile": "liquid_large_cap",
+      "target_weight_bps": 900
+    },
+    {
+      "instrument_id": "nse:hdfcbank",
+      "ticker": "HDFCBANK.NS",
+      "market": "NSE",
+      "currency": "INR",
+      "name": "HDFC Bank",
+      "sector": "Financials",
+      "industry": "Banking",
+      "profile": "liquid_large_cap",
+      "target_weight_bps": 900
+    },
+    {
+      "instrument_id": "us:wm",
+      "ticker": "WM",
+      "market": "US",
+      "currency": "USD",
+      "name": "Waste Management",
+      "sector": "Industrials",
+      "industry": "Waste and environmental services",
+      "profile": "slow_moving",
+      "target_weight_bps": 600
+    },
+    {
+      "instrument_id": "us:jnj",
+      "ticker": "JNJ",
+      "market": "US",
+      "currency": "USD",
+      "name": "Johnson & Johnson",
+      "sector": "Health care",
+      "industry": "Pharmaceuticals and medical devices",
+      "profile": "slow_moving",
+      "target_weight_bps": 600
+    },
+    {
+      "instrument_id": "nse:hindunilvr",
+      "ticker": "HINDUNILVR.NS",
+      "market": "NSE",
+      "currency": "INR",
+      "name": "Hindustan Unilever",
+      "sector": "Consumer staples",
+      "industry": "Household and personal products",
+      "profile": "slow_moving",
+      "target_weight_bps": 600
+    },
+    {
+      "instrument_id": "nse:sunpharma",
+      "ticker": "SUNPHARMA.NS",
+      "market": "NSE",
+      "currency": "INR",
+      "name": "Sun Pharmaceutical Industries",
+      "sector": "Health care",
+      "industry": "Pharmaceuticals",
+      "profile": "slow_moving",
+      "target_weight_bps": 600
+    },
+    {
+      "instrument_id": "us:ko",
+      "ticker": "KO",
+      "market": "US",
+      "currency": "USD",
+      "name": "The Coca-Cola Company",
+      "sector": "Consumer staples",
+      "industry": "Beverages",
+      "profile": "dividend_stability",
+      "target_weight_bps": 700
+    },
+    {
+      "instrument_id": "us:duk",
+      "ticker": "DUK",
+      "market": "US",
+      "currency": "USD",
+      "name": "Duke Energy",
+      "sector": "Utilities",
+      "industry": "Regulated electric and gas utilities",
+      "profile": "dividend_stability",
+      "target_weight_bps": 700
+    },
+    {
+      "instrument_id": "nse:powergrid",
+      "ticker": "POWERGRID.NS",
+      "market": "NSE",
+      "currency": "INR",
+      "name": "Power Grid Corporation of India",
+      "sector": "Utilities",
+      "industry": "Electricity transmission",
+      "profile": "dividend_stability",
+      "target_weight_bps": 700
+    },
+    {
+      "instrument_id": "nse:itc",
+      "ticker": "ITC.NS",
+      "market": "NSE",
+      "currency": "INR",
+      "name": "ITC Limited",
+      "sector": "Consumer staples",
+      "industry": "Tobacco and packaged goods",
+      "profile": "dividend_stability",
+      "target_weight_bps": 700
+    }
+  ],
+  "market_benchmarks": [
+    {
+      "instrument_id": "us:spy",
+      "ticker": "SPY",
+      "market": "US",
+      "currency": "USD"
+    },
+    {
+      "instrument_id": "nse:niftybees",
+      "ticker": "NIFTYBEES.NS",
+      "market": "NSE",
+      "currency": "INR"
+    }
+  ]
+}

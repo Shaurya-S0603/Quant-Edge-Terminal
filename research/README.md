@@ -16,7 +16,13 @@ PYTHONPATH=src .venv-research/bin/python -m quantedge_research --end-exclusive 2
 
 For PowerShell, use `py -3.12 -m venv .venv-research`, invoke `.\.venv-research\Scripts\python.exe`, and set `$env:PYTHONPATH = "src"` before running the audit. The GitHub job validates Linux. The checkout excludes local research data and environments.
 
-The default universe reuses the equity names discussed for QuantEdge, plus SPY and NIFTYBEES as provisional benchmarks. The CLI requests each series once with fixed inclusive start and exclusive end dates. It emits date bounds, coverage, action counts, and quality flags. It does not export prices, store Yahoo bars, or run models. Provider history can change between fetches. The versioned audit in this branch records the observed coverage.
+The default command reproduces the original [starter-list audit](coverage-audit-2026-11-18.md). To audit the [approved 16-stock comparison portfolio](approved-portfolio-v1.json) and its two local benchmarks, pass the versioned configuration instead.
+
+```sh
+PYTHONPATH=src .venv-research/bin/python -m quantedge_research --baseline research/approved-portfolio-v1.json --end-exclusive 2026-11-01 > .data/research/portfolio-coverage.json
+```
+
+Both commands request fixed historical dates and emit coverage, action counts, and quality flags. The baseline audit includes the configuration SHA-256 and checks that the screening dates fit inside development. Provider history can change between fetches. See the [approved baseline audit](approved-portfolio-audit-2026-11-18.md) for the observed coverage.
 
 ### Local historical data contract
 
