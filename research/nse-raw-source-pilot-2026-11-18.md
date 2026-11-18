@@ -1,5 +1,7 @@
 # NSE raw-price pilot and ITC Hotels entitlement
 
+The [source-readiness follow-up](source-readiness-2026-11-18.md) resolves the two identifier changes and checks actual archive inputs for the entitlement.
+
 The official NSE cash-market archive is a plausible single exchange source for unadjusted NSE fills. This pilot checked six selected trading sessions within the proposed development period. It parsed official prices and quantities, with archive hashes and security identifiers. The report contains metadata only. No holdout price file was read by this pilot.
 
 ## Raw-price validation
