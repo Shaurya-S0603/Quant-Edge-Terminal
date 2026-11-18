@@ -208,6 +208,12 @@ def total_return_index(bars: pd.DataFrame) -> pd.Series:
         raise ValueError("Use verified raw history for one instrument.")
     if not bars["session"].is_monotonic_increasing or bars["session"].duplicated().any():
         raise ValueError("Sessions must be unique and ordered.")
+    if "ticker" in bars.columns:
+        ticker = bars["ticker"].iloc[0]
+        start = bars["session"].iloc[0].date()
+        end = bars["session"].iloc[-1].date() + timedelta(days=1)
+        if known_complex_actions(ticker, start, end):
+            raise ValueError("Use share-entitlement accounting for this corporate-action window.")
     gross = bars["split_ratio"] * (bars["close"] + bars["cash_dividend"]) / bars["close"].shift()
     gross.iloc[0] = 1.0
     return gross.cumprod().rename("total_return_index")

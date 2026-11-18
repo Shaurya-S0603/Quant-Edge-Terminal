@@ -3,6 +3,8 @@
 from dataclasses import dataclass
 from datetime import date
 
+from .entitlements import ITC_HOTELS
+
 
 @dataclass(frozen=True)
 class ComplexAction:
@@ -15,7 +17,8 @@ class ComplexAction:
 
 EVENTS = (
     ComplexAction(
-        "ITC.NS", "2025-01-01", "2025-01-06", "demerger_with_share_allotment",
+        ITC_HOTELS.parent_ticker, ITC_HOTELS.effective_on.isoformat(),
+        ITC_HOTELS.record_date.isoformat(), "demerger_with_share_allotment",
         "https://itcportal.com/content/dam/itc-corporate/pdfs/report-and-accounts/ITC-Report-and-Accounts-2025.pdf",
     ),
 )

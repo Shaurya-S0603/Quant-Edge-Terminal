@@ -1,7 +1,7 @@
 """Check ticker coverage in official NSE cash-market archives without retaining bars."""
 
 import argparse
-from typing import BinaryIO
+from collections.abc import Mapping
 import csv
 from dataclasses import asdict, dataclass
 from datetime import date
@@ -9,6 +9,7 @@ from hashlib import sha256
 import io
 import json
 from pathlib import Path
+from typing import BinaryIO
 from urllib.request import Request, urlopen
 from zipfile import BadZipFile, ZipFile
 
@@ -46,10 +47,21 @@ def archive_url(session: date) -> str:
 
 def inspect_archive(payload: bytes, session: date, tickers: set[str]) -> ArchiveEvidence:
     """Validate a single-date CSV and report selected EQ-series ticker presence."""
+    evidence, _ = read_selected_rows(payload, session, dict.fromkeys(tickers, "EQ"))
+    return evidence
+
+
+def read_selected_rows(
+    payload: bytes, session: date, expected_series: Mapping[str, str],
+) -> tuple[ArchiveEvidence, dict[str, dict[str, str]]]:
+    """Return rows only for explicitly requested ticker and series combinations."""
     if len(payload) > MAX_ZIP_BYTES:
         raise ValueError("NSE archive exceeds the compressed size limit.")
-    if not tickers or any(not ticker.endswith(".NS") or ticker == ".NS" for ticker in tickers):
-        raise ValueError("Expected one or more NSE tickers ending in .NS.")
+    if not expected_series or any(
+        not ticker.endswith(".NS") or ticker == ".NS" or series not in {"EQ", "BE"}
+        for ticker, series in expected_series.items()
+    ):
+        raise ValueError("Expected NSE .NS tickers and EQ or BE series.")
     try:
         with ZipFile(io.BytesIO(payload)) as archive:
             members = [item for item in archive.infolist() if not item.is_dir()]
@@ -59,12 +71,14 @@ def inspect_archive(payload: bytes, session: date, tickers: set[str]) -> Archive
             if member.file_size > MAX_CSV_BYTES:
                 raise ValueError("NSE CSV exceeds the decompressed size limit.")
             with archive.open(member) as stream:
-                return _inspect_csv(stream, payload, session, tickers)
+                return _inspect_csv(stream, payload, session, expected_series)
     except BadZipFile as error:
         raise ValueError("Invalid NSE archive ZIP.") from error
 
 
-def _inspect_csv(stream: BinaryIO, payload: bytes, session: date, tickers: set[str]) -> ArchiveEvidence:
+def _inspect_csv(
+    stream: BinaryIO, payload: bytes, session: date, expected_series: Mapping[str, str],
+) -> tuple[ArchiveEvidence, dict[str, dict[str, str]]]:
     reader = csv.DictReader(io.TextIOWrapper(stream, encoding="utf-8-sig", newline=""))
     header = set(reader.fieldnames or ())
     if {"TradDt", "TckrSymb", "SctySrs", "OpnPric", "ClsPric", "TtlTradgVol"} <= header:
@@ -75,26 +89,26 @@ def _inspect_csv(stream: BinaryIO, payload: bytes, session: date, tickers: set[s
         expected_date = _legacy_session(session)
     else:
         raise ValueError("Unexpected NSE cash-market CSV schema.")
-    found: set[str] = set()
+    found: dict[str, dict[str, str]] = {}
     saw_row = False
     for row in reader:
         saw_row = True
         if (row.get(date_column) or "").strip().upper() != expected_date:
             raise ValueError("NSE archive contains a different trading date.")
-        if (row.get(series_column) or "").strip() != "EQ":
-            continue
         ticker = (row.get(ticker_column) or "").strip() + ".NS"
-        if ticker not in tickers:
+        series = (row.get(series_column) or "").strip()
+        if expected_series.get(ticker) != series:
             continue
         if ticker in found:
-            raise ValueError(f"Duplicate NSE EQ row for {ticker}.")
-        found.add(ticker)
+            raise ValueError(f"Duplicate NSE {series} row for {ticker}.")
+        found[ticker] = row
     if not saw_row:
         raise ValueError("NSE archive contains no rows.")
-    return ArchiveEvidence(
+    evidence = ArchiveEvidence(
         session.isoformat(), archive_url(session), sha256(payload).hexdigest(),
-        format_name, tuple(sorted(found)), tuple(sorted(tickers - found)),
+        format_name, tuple(sorted(found)), tuple(sorted(set(expected_series) - found.keys())),
     )
+    return evidence, found
 
 
 def main() -> None:
